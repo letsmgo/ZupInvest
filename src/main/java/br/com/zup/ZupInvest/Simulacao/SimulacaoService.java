@@ -1,6 +1,7 @@
 package br.com.zup.ZupInvest.Simulacao;
 
 import br.com.zup.ZupInvest.Simulacao.Dto.SimulacaoDto;
+import br.com.zup.ZupInvest.Simulacao.Dto.SimulacaoSaidaDto;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,5 +15,20 @@ public class SimulacaoService {
         simulacao.add(simulacaoDto);
     }
 
+    public SimulacaoSaidaDto calculoDaSimulacao(SimulacaoDto simulacaoDto){
+        double taxaDeRendimento  = simulacaoDto.getRisco().getTaxaDeRendimento();
+        double valorAplicado = simulacaoDto.getValorInvestimento();
+        int periodoDaAplicacao = simulacaoDto.getPeriodoDeAplicacaoMeses();
+
+        double valorDoLucro = 0;
+        double valorTotal = valorAplicado;
+
+        for(int i = 0; i < periodoDaAplicacao; i++){
+            valorDoLucro = valorDoLucro + (valorTotal * taxaDeRendimento);
+            valorTotal = valorTotal + valorDoLucro;
+        }
+
+        return new SimulacaoSaidaDto(valorAplicado, valorDoLucro, valorTotal);
+    }
 
 }
