@@ -2,7 +2,10 @@ package br.com.zup.ZupInvest.Simulacao.Dto;
 
 import br.com.zup.ZupInvest.Simulacao.Enum.Risco;
 
+import javax.validation.constraints.Email;
+
 public class SimulacaoDto {
+    @Email(message = "E-mail inválido")
     private String email;
     private String nome;
     private String cpf;
