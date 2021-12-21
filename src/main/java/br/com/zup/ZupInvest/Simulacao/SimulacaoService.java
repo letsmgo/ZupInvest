@@ -25,7 +25,7 @@ public class SimulacaoService {
 
         for(int i = 0; i < periodoDaAplicacao; i++){
             valorDoLucro = valorDoLucro + (valorTotal * taxaDeRendimento);
-            valorTotal = valorTotal + valorDoLucro;
+            valorTotal = valorAplicado + valorDoLucro;
         }
 
         return new SimulacaoSaidaDto(valorAplicado, valorDoLucro, valorTotal);
