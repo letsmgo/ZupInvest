@@ -2,6 +2,8 @@ package br.com.zup.ZupInvest.Simulacao;
 
 import br.com.zup.ZupInvest.Simulacao.Dto.SimulacaoDto;
 import br.com.zup.ZupInvest.Simulacao.Dto.SimulacaoSaidaDto;
+import br.com.zup.ZupInvest.Simulacao.Enum.Risco;
+import br.com.zup.ZupInvest.Simulacao.Exceptions.ValorBaixoParaRiscoAltoException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ public class SimulacaoService {
     private List<SimulacaoDto> simulacao = new ArrayList<>();
 
     public void criarSimulacao(SimulacaoDto simulacaoDto){
+        varificarValorERisco(simulacaoDto);
         simulacao.add(simulacaoDto);
     }
 
@@ -36,5 +39,10 @@ public class SimulacaoService {
         return calculoDaSimulacao(simulacaoDto);
     }
 
+    private void varificarValorERisco(SimulacaoDto simulacaoDTO){
+        if(simulacaoDTO.getRisco() == Risco.ALTO && simulacaoDTO.getValorInvestimento() < 5000.00){
+            throw new ValorBaixoParaRiscoAltoException("Valor muito baixo para risco alto");
+        }
+    }
 
 }
